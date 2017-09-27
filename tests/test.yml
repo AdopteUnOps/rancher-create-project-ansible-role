@@ -4,6 +4,6 @@
   vars:
     rancher_api_key: "mykey"
     rancher_api_secret: "mysecret"
-    rancher_project_name: "demo"
+    rancher_project_name: "default"
   roles:
     - rancher-create-project-ansible-role
