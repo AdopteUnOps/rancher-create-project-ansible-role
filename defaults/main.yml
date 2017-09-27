@@ -1,3 +1,4 @@
+rancher_master_url: "http://localhost:8080"
 rancher_project_template_name: "Cattle"
 use_custom_registry: False
 docker_registry_url: ""
