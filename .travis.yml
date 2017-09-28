@@ -12,6 +12,9 @@ env:
   - ANSIBLE_VERSION=2.3.0.0
   - ANSIBLE_VERSION=2.2.0.0
   - ANSIBLE_VERSION=2.1.0.0
+services:
+  - docker
+
 before_install:
   - sudo apt-get update -qq
 
@@ -20,13 +23,13 @@ install:
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
   - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
   - ansible-galaxy install AdopteUnOps.rancher-install-cli
-  - "curl -L https://github.com/rancher/cli/releases/download/v0.6.4/rancher-linux-amd64-v0.6.4.tar.gz | tar zx --strip-components 2 -C /usr/local/bin"
+  - sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server
 script:
   # Check the role/playbook's syntax.
   - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
   # Run the role/playbook with ansible-playbook.
   # dry run
-  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo --check
+  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo
   # Run the role/playbook again, checking to make sure it's idempotent.
   #- >
   #  ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo
