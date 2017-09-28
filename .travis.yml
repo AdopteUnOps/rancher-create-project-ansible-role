@@ -24,6 +24,7 @@ install:
   - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
   - ansible-galaxy install AdopteUnOps.rancher-install-cli
   - sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server
+  - "while ! curl --output /dev/null --silent --head --fail http://localhost:8080; do sleep 1 && echo -n .; done;"
 script:
   # Check the role/playbook's syntax.
   - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
