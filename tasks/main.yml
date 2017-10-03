@@ -1,6 +1,7 @@
 ---
 - name: Verify if project exists
   stat: path="{{ inventory_dir }}/group_vars/{{ rancher_project_name }}/apikey.yml"
+  delegate_to: localhost
   register: project_file
 
 - name: Create Project
