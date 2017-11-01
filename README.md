@@ -23,14 +23,23 @@ Role Variables
 ```
 rancher_master_url: "http://localhost:8080"
 rancher_project_template_name: "Cattle"
-use_custom_registry: False
-docker_registry_url: ""
-docker_registry_username: ""
-docker_registry_password: ""
-docker_registry_email: ""
 
+docker_registries: []
 ```
 
+Registries  Examples
+----------
+```
+docker_registries:
+  # docker hub
+  - url: index.docker.io
+    username: XXX
+    password: ZZZ
+  # if you have the ca certificate
+  - url: my.custom.registry
+    username: XXX
+    password: ZZZ
+```
 License
 -------
 
